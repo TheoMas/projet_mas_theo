@@ -1,0 +1,82 @@
+<div class="loginContainer">
+  <div class="loginCard">
+    <h1>Connexion</h1>
+    <p class="subtitle">Connectez-vous pour gérer les pollutions</p>
+
+    @if (isLoading) {
+      <div class="loading">
+        <p>Connexion en cours...</p>
+      </div>
+    }
+
+    @if (!isLoading) {
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        
+        <!-- Login -->
+        <div class="formGroup">
+          <label for="login">Nom d'utilisateur *</label>
+          <input 
+            type="text" 
+            id="login" 
+            formControlName="login" 
+            class="formControl"
+            placeholder="Votre nom d'utilisateur"
+            [class.invalid]="login?.invalid && login?.touched"
+            autocomplete="username"
+          />
+          @if (login?.invalid && login?.touched) {
+            <div class="error">
+              @if (login?.errors?.['required']) {
+                <small>Le nom d'utilisateur est requis</small>
+              }
+              @if (login?.errors?.['minlength']) {
+                <small>Le nom d'utilisateur doit contenir au moins 3 caractères</small>
+              }
+            </div>
+          }
+        </div>
+
+        <!-- Password -->
+        <div class="formGroup">
+          <label for="pass">Mot de passe *</label>
+          <input 
+            type="password" 
+            id="pass" 
+            formControlName="pass" 
+            class="formControl"
+            placeholder="Votre mot de passe"
+            [class.invalid]="pass?.invalid && pass?.touched"
+            autocomplete="current-password"
+          />
+          @if (pass?.invalid && pass?.touched) {
+            <div class="error">
+              @if (pass?.errors?.['required']) {
+                <small>Le mot de passe est requis</small>
+              }
+              @if (pass?.errors?.['minlength']) {
+                <small>Le mot de passe doit contenir au moins 6 caractères</small>
+              }
+            </div>
+          }
+        </div>
+
+        <!-- Message d'erreur -->
+        @if (errorMessage) {
+          <div class="errorMessage">
+            <p>{{ errorMessage }}</p>
+          </div>
+        }
+
+        <!-- Bouton de connexion -->
+        <button type="submit" class="loginButton" [disabled]="isLoading">
+          Se connecter
+        </button>
+
+        <!-- Lien vers inscription (optionnel) -->
+        <div class="registerLink">
+          <p>Pas encore de compte ? <a routerLink="/register">S'inscrire</a></p>
+        </div>
+      </form>
+    }
+  </div>
+</div>

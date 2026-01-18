@@ -1,0 +1,48 @@
+<div class="detailsContainer">
+  <div *ngIf="isLoading" class="loading">
+    <p>Chargement des détails...</p>
+  </div>
+
+  <div *ngIf="error" class="error">
+    <p>{{ error }}</p>
+    <button (click)="goBack()">Retour à la liste</button>
+  </div>
+
+  <div *ngIf="pollution && !isLoading" class="pollutionDetails">
+    <h1>{{ pollution.titre }}</h1>
+    
+    <img [src]="pollution.photo_url" [alt]="pollution.titre" class="detailsImage" />
+    
+    <div class="detailsInfo">
+      <div class="infoRow">
+        <strong>Lieu:</strong>
+        <span>{{ pollution.lieu }}</span>
+      </div>
+      
+      <div class="infoRow">
+        <strong>Type de pollution:</strong>
+        <span>{{ pollution.type_pollution }}</span>
+      </div>
+      
+      <div class="infoRow">
+        <strong>Date d'observation:</strong>
+        <span>{{ pollution.date_observation }}</span>
+      </div>
+      
+      <div class="infoRow">
+        <strong>Description:</strong>
+        <p>{{ pollution.description }}</p>
+      </div>
+      
+      <div class="infoRow">
+        <strong>Coordonnées:</strong>
+        <span>Lat: {{ pollution.latitude }}, Long: {{ pollution.longitude }}</span>
+      </div>
+    </div>
+
+    <div class="actionsContainer">
+      <button (click)="goBack()" class="button backButton">Retour à la liste</button>
+      <button (click)="editPollution()" class="button editButton">Modifier</button>
+    </div>
+  </div>
+</div>

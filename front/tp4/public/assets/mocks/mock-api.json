@@ -1,0 +1,35 @@
+[
+    {
+        "id": 1,
+        "nom": "Déversement industriel", 
+        "lieu": "Rivière Loire, Nantes", 
+        "dateObservation": "2025-10-15", 
+        "typePollution": "Eau", 
+        "description": "Déversement de produits chimiques dans la Loire suite à un accident industriel. Pollution importante constatée sur plusieurs kilomètres.", 
+        "latitude": "47.2184", 
+        "longitude": "-1.5536", 
+        "imageUrl": "https://images.unsplash.com/photo-1611273426858-450d8e3c9fce?w=400"
+    },
+    {
+        "id": 2,
+        "nom": "Décharge sauvage", 
+        "lieu": "Forêt de Fontainebleau", 
+        "dateObservation": "2025-10-20", 
+        "typePollution": "Sol", 
+        "description": "Décharge sauvage découverte en bordure de forêt. Présence de déchets ménagers et d'encombrants.", 
+        "latitude": "48.4089", 
+        "longitude": "2.6989", 
+        "imageUrl": "https://images.unsplash.com/photo-1530587191325-3db32d826c18?w=400"
+    },
+    {
+        "id": 3,
+        "nom": "Pollution atmosphérique", 
+        "lieu": "Centre-ville de Lyon", 
+        "dateObservation": "2025-10-22", 
+        "typePollution": "Air", 
+        "description": "Pic de pollution aux particules fines dû à la circulation dense et aux conditions météorologiques défavorables.", 
+        "latitude": "45.7640", 
+        "longitude": "4.8357", 
+        "imageUrl": "https://images.unsplash.com/photo-1514924013411-cbf25faa35bb?w=400"
+    }
+]

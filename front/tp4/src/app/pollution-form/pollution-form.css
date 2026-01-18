@@ -1,0 +1,130 @@
+.formContainer {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: #2b2b2c;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+    
+h1 {
+  color: #fff;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.loading {
+  text-align: center;
+  padding: 2rem;
+  color: #666;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+label {
+  font-weight: 600;
+  color: #fff;
+  font-size: 0.95rem;
+}
+
+.formControl {
+  padding: 0.75rem;
+  border: 2px solid #808080;
+  background-color: #808080;
+  border-radius: 4px;
+  font-size: 1rem;
+  transition: border-color 0.3s;
+}
+
+.formControl:focus {
+  outline: none;
+  border-color: #4CAF50;
+}
+
+.formControl.invalid {
+  border-color: #f44336;
+}
+
+textarea.formControl {
+  resize: vertical;
+  min-height: 100px;
+}
+
+select.formControl {
+  cursor: pointer;
+}
+
+.error {
+  color: #f44336;
+  font-size: 0.875rem;
+}
+
+.error small {
+  display: block;
+  margin-top: 0.25rem;
+}
+
+.buttonsContainer {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+  margin-top: 1rem;
+}
+
+.button {
+  padding: 0.75rem 2rem;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.submitButton {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.submitButton:hover:not(:disabled) {
+  background-color: #45a049;
+}
+
+.cancelButton {
+  background-color: #f44336;
+  color: white;
+}
+
+.cancelButton:hover {
+  background-color: #da190b;
+}
+
+@media (max-width: 768px) {
+  .formContainer {
+    margin: 1rem;
+    padding: 1rem;
+  }
+
+  .buttonsContainer {
+    flex-direction: column;
+  }
+
+  .button {
+    width: 100%;
+  }
+}

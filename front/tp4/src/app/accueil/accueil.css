@@ -1,0 +1,101 @@
+.accueilContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    background-color: #1b1b1b;
+}
+
+.accueilContainer h1 {
+    color: rgb(206, 206, 206);
+}
+
+.pollutionItem{
+    background-color: #2b2b2c;
+    color: rgb(206, 206, 206);
+    border-radius: 8px;
+    padding: 16px;
+    margin: 12px;
+    gap: 12px;
+    box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.1);
+}
+
+.pollutionInfo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2vh;
+    margin-bottom: 1vh;
+}
+
+.pollutionImage {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.button{
+    cursor: pointer;
+}
+
+.detailsButton {
+    background-color: #4c66af;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin-right: 8px;
+    border-radius: 4px;
+}
+
+.detailsButton:hover {
+    background-color: #3b4f8a;
+}
+
+.modifyButton {
+    background-color: #32bb3e;
+    cursor: pointer;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin-right: 8px;
+    border-radius: 4px;
+}
+
+.modifyButton:hover {
+    background-color: #32bb3e;
+}
+
+.deleteButton {
+    background-color: #f04e4e;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+}
+
+.deleteButton:hover {
+    background-color: #d04343;
+}
+
+.addButton {
+    background-color: #32bb3e;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    margin-bottom: 16px;
+}
+.addButton:hover {
+    background-color: #26922f;
+}
+
+.searchInput {
+    padding: 8px;
+    width: 300px;
+    margin-bottom: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 20px;
+}
