@@ -1,0 +1,40 @@
+<div class="appContainer">
+  <!-- Navigation Header -->
+  @if (isLoggedIn()) {
+    <header class="appHeader">
+      <div class="headerContent">
+        <div class="logo">
+          <h1>{{ title }}</h1>
+        </div>
+        
+        <nav class="navigation">
+          <a routerLink="/accueil" routerLinkActive="active" class="navLink">
+            Accueil
+          </a>
+          <a routerLink="/favorites" routerLinkActive="active" class="navLink">
+            <span>❤️</span> Mes Favoris
+          </a>
+          <a routerLink="/pollution-form" routerLinkActive="active" class="navLink">
+            <span>➕</span> Signaler une pollution
+          </a>
+        </nav>
+        
+        <div class="userSection">
+          @if (currentUser()) {
+            <div class="userInfo">
+              <span class="userName">👤 {{ currentUser()!.username }}</span>
+            </div>
+          }
+          <button (click)="logout()" class="logoutButton">
+            Déconnexion
+          </button>
+        </div>
+      </div>
+    </header>
+  }
+
+  <!-- Contenu principal -->
+  <main class="mainContent">
+    <router-outlet></router-outlet>
+  </main>
+</div>

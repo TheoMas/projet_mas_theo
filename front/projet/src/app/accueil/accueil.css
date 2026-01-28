@@ -1,0 +1,320 @@
+.accueilContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px;
+    min-height: 100vh;
+}
+
+.accueilContainer h1 {
+    color: rgba(255, 255, 255, 0.95);
+    font-size: 36px;
+    font-weight: 600;
+    letter-spacing: -0.5px;
+    margin-bottom: 40px;
+}
+
+.pollutionList {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    width: 100%;
+    max-width: 1600px;
+}
+
+.pollutionItem{
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(40px) saturate(180%);
+    -webkit-backdrop-filter: blur(40px) saturate(180%);
+    color: rgba(255, 255, 255, 0.9);
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    box-shadow: 
+        0 8px 32px rgba(0, 0, 0, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.favoriteButton {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(10px);
+    cursor: pointer;
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.favoriteButton:hover {
+    background: rgba(220, 38, 38, 0.5);
+    transform: scale(1.1);
+    color: rgba(255, 80, 80, 1);
+}
+
+.favoriteButton.active {
+    background: rgba(220, 38, 38, 0.3);
+    color: rgba(239, 68, 68, 1);
+}
+
+.favoriteButton.active:hover {
+    background: rgba(220, 38, 38, 0.6);
+    color: rgba(255, 100, 100, 1);
+}
+
+.pollutionItem::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent-color), rgba(0, 150, 130, 0.8));
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.pollutionItem:hover::before {
+    opacity: 1;
+}
+
+.pollutionItem:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 
+        0 16px 48px rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.15),
+        0 0 0 2px var(--accent-color);
+    border-color: var(--accent-color);
+    background: rgba(255, 255, 255, 0.12);
+}
+
+/* Image en haut de la carte */
+.pollutionImage {
+    width: 100%;
+    min-width: 100%;
+    max-width: 100%;
+    height: 200px;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 0;
+    display: block;
+    margin: 0;
+    padding: 0;
+    transform: scale(1.05);
+    transform-origin: center;
+}
+
+/* Container pour les infos */
+.pollutionInfo {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    gap: 12px;
+    margin: 0;
+    text-align: left;
+    align-items: flex-start;
+}
+
+.textInfo {
+    text-align: left;
+    width: 100%;
+    display: block;
+}
+
+.textInfo h2 {
+    font-size: 22px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.95);
+    margin: 0 0 12px 0;
+    line-height: 1.3;
+    text-align: left;
+    width: 100%;
+}
+
+.textInfo p {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.7);
+    margin: 6px 0;
+    line-height: 1.5;
+    text-align: left;
+    width: 100%;
+}
+
+/* Container des boutons */
+.buttonsContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 0 20px 20px 20px;
+    align-items: stretch;
+}
+
+.pollutionInfo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2vh;
+    margin-bottom: 1vh;
+}
+
+.pollutionImage {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.button{
+    cursor: pointer;
+}
+
+.buttonGroup {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-top: 24px;
+}
+
+.button {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(20px);
+    color: rgba(255, 255, 255, 0.85);
+    border: 1.5px solid rgba(255, 255, 255, 0.15);
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    cursor: pointer;
+}
+
+.detailsButton,
+.modifyButton,
+.deleteButton {
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(20px);
+    color: rgba(255, 255, 255, 0.85);
+    border: 1.5px solid rgba(255, 255, 255, 0.15);
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    cursor: pointer;
+}
+
+.detailsButton:hover,
+.modifyButton:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.25);
+    transform: translateY(-2px);
+    box-shadow: 
+        inset 0 1px 0 rgba(255, 255, 255, 0.12),
+        0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.deleteButton:hover {
+    background: rgba(220, 38, 38, 0.2);
+    border-color: rgba(220, 38, 38, 0.5);
+    color: rgba(255, 100, 100, 1);
+    transform: translateY(-2px);
+    box-shadow: 
+        inset 0 1px 0 rgba(255, 100, 100, 0.2),
+        0 4px 12px rgba(220, 38, 38, 0.3);
+}
+
+.addButton {
+    background: rgba(0, 150, 100, 0.15);
+    backdrop-filter: blur(20px);
+    color: rgba(0, 170, 110, 1);
+    border: 1.5px solid rgba(0, 150, 100, 0.3);
+    padding: 14px 32px;
+    border-radius: 10px;
+    font-size: 16px;
+    margin-bottom: 32px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 
+        inset 0 1px 0 rgba(255, 255, 255, 0.1),
+        0 2px 8px rgba(0, 0, 0, 0.1);
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.addButton:hover {
+    background: rgba(0, 150, 100, 0.25);
+    border-color: rgba(0, 150, 100, 0.4);
+    transform: translateY(-2px);
+    box-shadow: 
+        inset 0 1px 0 rgba(255, 255, 255, 0.15),
+        0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+.searchInput {
+    padding: 14px 20px;
+    width: 100%;
+    max-width: 400px;
+    margin-bottom: 32px;
+    border: 1.5px solid rgba(255, 255, 255, 0.12);
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(40px);
+    color: rgba(255, 255, 255, 0.95);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+    font-size: 15px;
+}
+
+.searchInput:focus {
+    outline: none;
+    border-color: var(--accent-border);
+    box-shadow: 
+        inset 0 1px 2px rgba(0, 0, 0, 0.1),
+        0 0 0 3px rgba(0, 180, 150, 0.1);
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.searchInput::placeholder {
+    color: rgba(255, 255, 255, 0.3);
+}
+
+@media (max-width: 768px) {
+    .pollutionList {
+        grid-template-columns: 1fr;
+    }
+    
+    .accueilContainer h1 {
+        font-size: 28px;
+    }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+    .pollutionList {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 1025px) and (max-width: 1440px) {
+    .pollutionList {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}

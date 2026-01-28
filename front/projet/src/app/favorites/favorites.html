@@ -1,0 +1,32 @@
+<div class="favoritesContainer">
+    <h1>Mes Favoris</h1>
+
+    <div *ngIf="loading()" class="loading">
+        <p>Chargement...</p>
+    </div>
+
+    <div *ngIf="!loading() && favoritePollutions().length === 0" class="emptyState">
+        <p>Vous n'avez pas encore de pollutions favorites.</p>
+        <button (click)="router.navigate(['/accueil'])" class="backButton">Découvrir les pollutions</button>
+    </div>
+
+    <div *ngIf="!loading() && favoritePollutions().length > 0" class="favoritesList">
+        <div *ngFor="let pollution of favoritePollutions()" class="favoriteItem">
+            <button (click)="removeFavorite(pollution.id)" class="removeFavoriteButton" title="Retirer des favoris">
+                ♥
+            </button>
+            <img *ngIf="pollution.photo_url" [src]="pollution.photo_url" alt="{{ pollution.titre }}" class="favoriteImage"/>
+            <div class="favoriteInfo">
+                <div class="textInfo">
+                    <h2>{{ pollution.titre }}</h2>
+                    <p>Lieu: {{ pollution.lieu }}</p>
+                    <p>Type: {{ pollution.type_pollution }}</p>
+                    <p>Date: {{ pollution.date_observation }}</p>
+                </div>
+            </div>
+            <div class="buttonsContainer">
+                <button (click)="viewDetails(pollution.id)" class="button detailsButton">Voir les détails</button>
+            </div>
+        </div>
+    </div>
+</div>

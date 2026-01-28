@@ -1,0 +1,143 @@
+<div class="registerContainer">
+  <div class="registerCard">
+    <h1>Inscription</h1>
+    <p class="subtitle">Créez votre compte pour gérer les pollutions</p>
+
+    @if (isLoading()) {
+      <div class="loading">
+        <p>Création du compte en cours...</p>
+      </div>
+    }
+
+    @if (!isLoading() && !successMessage) {
+      <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+        
+        <!-- Username -->
+        <div class="formGroup">
+          <label for="username">Nom d'utilisateur *</label>
+          <input 
+            type="text" 
+            id="username" 
+            formControlName="username" 
+            class="formControl"
+            placeholder="Choisissez un nom d'utilisateur unique"
+            [class.invalid]="username?.invalid && username?.touched"
+            (blur)="checkUsernameAvailability()"
+          />
+          @if (username?.invalid && username?.touched) {
+            <div class="error">
+              @if (username?.errors?.['required']) {
+                <small>Le nom d'utilisateur est requis</small>
+              }
+              @if (username?.errors?.['minlength']) {
+                <small>Le nom d'utilisateur doit contenir au moins 3 caractères</small>
+              }
+              @if (username?.errors?.['pattern']) {
+                <small>Le nom d'utilisateur ne peut contenir que des lettres, chiffres et underscores</small>
+              }
+              @if (username?.errors?.['usernameTaken']) {
+                <small>Ce nom d'utilisateur est déjà utilisé</small>
+              }
+            </div>
+          }
+        </div>
+
+        <!-- Email -->
+        <div class="formGroup">
+          <label for="email">Email *</label>
+          <input 
+            type="email" 
+            id="email" 
+            formControlName="email" 
+            class="formControl"
+            placeholder="votre.email@exemple.com"
+            [class.invalid]="email?.invalid && email?.touched"
+          />
+          @if (email?.invalid && email?.touched) {
+            <div class="error">
+              @if (email?.errors?.['required']) {
+                <small>L'email est requis</small>
+              }
+              @if (email?.errors?.['email']) {
+                <small>L'email n'est pas valide</small>
+              }
+            </div>
+          }
+        </div>
+
+        <!-- Password -->
+        <div class="formGroup">
+          <label for="password">Mot de passe *</label>
+          <input 
+            type="password" 
+            id="password" 
+            formControlName="password" 
+            class="formControl"
+            placeholder="Minimum 6 caractères"
+            [class.invalid]="password?.invalid && password?.touched"
+            autocomplete="new-password"
+          />
+          @if (password?.invalid && password?.touched) {
+            <div class="error">
+              @if (password?.errors?.['required']) {
+                <small>Le mot de passe est requis</small>
+              }
+              @if (password?.errors?.['minlength']) {
+                <small>Le mot de passe doit contenir au moins 6 caractères</small>
+              }
+            </div>
+          }
+        </div>
+
+        <!-- Confirm Password -->
+        <div class="formGroup">
+          <label for="confirmPassword">Confirmer le mot de passe *</label>
+          <input 
+            type="password" 
+            id="confirmPassword" 
+            formControlName="confirmPassword" 
+            class="formControl"
+            placeholder="Retapez votre mot de passe"
+            [class.invalid]="(confirmPassword?.invalid || registerForm.errors?.['passwordMismatch']) && confirmPassword?.touched"
+            autocomplete="new-password"
+          />
+          @if (confirmPassword?.touched) {
+            <div class="error">
+              @if (confirmPassword?.errors?.['required']) {
+                <small>La confirmation est requise</small>
+              }
+              @if (registerForm.errors?.['passwordMismatch'] && !confirmPassword?.errors?.['required']) {
+                <small>Les mots de passe ne correspondent pas</small>
+              }
+            </div>
+          }
+        </div>
+
+        <!-- Message d'erreur -->
+        @if (errorMessage()) {
+          <div class="errorMessage">
+            <p>{{ errorMessage() }}</p>
+          </div>
+        }
+
+        <!-- Bouton d'inscription -->
+        <button type="submit" class="registerButton" [disabled]="isLoading()">
+          S'inscrire
+        </button>
+
+        <!-- Lien vers connexion -->
+        <div class="loginLink">
+          <p>Vous avez déjà un compte ? <a routerLink="/login">Se connecter</a></p>
+        </div>
+      </form>
+    }
+
+    <!-- Message de succès -->
+    @if (successMessage) {
+      <div class="successMessage">
+        <div class="successIcon">✓</div>
+        <p>{{ successMessage }}</p>
+      </div>
+    }
+  </div>
+</div>

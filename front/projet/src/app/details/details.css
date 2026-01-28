@@ -1,0 +1,201 @@
+/* Details Page - Apple Glassmorphism Style */
+
+.detailsContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 40px 20px;
+}
+
+.detailsCard {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(40px) saturate(180%);
+  -webkit-backdrop-filter: blur(40px) saturate(180%);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    0 1px 0 rgba(0, 0, 0, 0.1);
+  padding: 48px;
+  max-width: 800px;
+  width: 100%;
+  }
+
+h1 {
+  color: rgba(255, 255, 255, 0.95);
+  text-align: center;
+  margin-bottom: 40px;
+  font-size: 32px;
+  font-weight: 600;
+  letter-spacing: -0.5px;
+}
+
+.detailsImage {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  max-height: 400px;
+  object-fit: contain;
+  border-radius: 12px;
+  margin-bottom: 32px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.loading {
+  text-align: center;
+  padding: 40px;
+  color: var(--accent-color);
+  font-size: 18px;
+}
+
+.detailsContent {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.detailRow {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 18px 24px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.detailRow::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: linear-gradient(180deg, var(--accent-color), rgba(0, 150, 130, 0.6));
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.detailRow:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.15);
+  transform: translateX(8px);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.detailRow:hover::before {
+  opacity: 1;
+}
+
+.detailLabel {
+  font-weight: 600;
+  color: var(--accent-color);
+  margin-bottom: 6px;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.detailValue {
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.backButton {
+  background: rgba(100, 150, 255, 0.1);
+  backdrop-filter: blur(20px);
+  color: rgba(120, 160, 255, 0.95);
+  border: 1.5px solid rgba(100, 150, 255, 0.25);
+  padding: 12px 32px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 16px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.backButton:hover {
+  background: rgba(100, 150, 255, 0.18);
+  border-color: rgba(100, 150, 255, 0.35);
+  transform: translateY(-2px);
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+.backButton:active {
+  transform: translateY(0);
+}
+
+/* Type de pollution badge */
+.pollutionTypeBadge {
+  display: inline-block;
+  padding: 8px 18px;
+  background: var(--accent-transparent);
+  backdrop-filter: blur(20px);
+  border: 1.5px solid var(--accent-border);
+  border-radius: 20px;
+  color: var(--accent-color);
+  font-weight: 600;
+  font-size: 14px;
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.actionsContainer {
+  display: flex;
+  gap: 16px;
+  margin-top: 24px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.editButton {
+  background: rgba(0, 180, 150, 0.12);
+  backdrop-filter: blur(20px);
+  color: var(--accent-color);
+  border: 1.5px solid var(--accent-border);
+  padding: 12px 32px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 16px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.editButton:hover {
+  background: rgba(0, 180, 150, 0.25);
+  border-color: rgba(0, 180, 150, 0.4);
+  transform: translateY(-2px);
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.15),
+    0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+.editButton:active {
+  transform: translateY(0);
+}
+
+@media (max-width: 768px) {
+  .detailsCard {
+    padding: 32px 24px;
+  }
+
+  h1 {
+    font-size: 24px;
+  }
+  
+  .detailRow {
+    padding: 16px 20px;
+  }
+}

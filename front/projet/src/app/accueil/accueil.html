@@ -1,0 +1,26 @@
+<div class="accueilContainer">
+    <h1>Liste des pollutions</h1>
+    <input class="searchInput" type="text" placeholder="Rechercher une pollution..." [(ngModel)]="searchTerm"/>
+    <input type="button" (click)="createPollution()" value="Ajouter une pollution" class="addButton"/>
+    <div class="pollutionList">
+        <div *ngFor="let pollution of getFilteredPollutions()" class="pollutionItem">
+            <button (click)="toggleFavorite(pollution.id, $event)" class="favoriteButton" [class.active]="isFavorite(pollution.id)">
+                {{ isFavorite(pollution.id) ? '♥' : '♡' }}
+            </button>
+            <img [src]="pollution.photo_url" alt="{{ pollution.titre }}" class="pollutionImage"/>
+            <div class="pollutionInfo">
+                <div class="textInfo">
+                    <h2>{{ pollution.titre }}</h2>
+                    <p>Lieu: {{ pollution.lieu }}</p>
+                    <p>Type: {{ pollution.type_pollution }}</p>
+                    <p>Date observation: {{ pollution.date_observation }}</p>
+                </div>
+            </div>
+            <div class="buttonsContainer">
+                <button (click)="viewDetails(pollution.id)" class="button detailsButton">Voir les détails</button>
+                <button (click)="modifyPollution(pollution.id)" class="button modifyButton">Modifier</button>
+                <button (click)="deletePollution(pollution.id, pollution.titre)" class="button deleteButton">Supprimer</button>
+            </div>
+        </div>
+    </div>
+</div>

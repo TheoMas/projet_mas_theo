@@ -1,0 +1,48 @@
+<div class="detailsContainer">
+  <div *ngIf="isLoading()" class="loading">
+    <p>Chargement des détails...</p>
+  </div>
+
+  <div *ngIf="error() && !isLoading()" class="error">
+    <p>{{ error() }}</p>
+    <button (click)="goBack()">Retour à la liste</button>
+  </div>
+
+  <div *ngIf="pollution() && !isLoading() && !error()" class="detailsCard">
+    <h1>{{ pollution()!.titre }}</h1>
+    
+    <img *ngIf="pollution()!.photo_url" [src]="pollution()!.photo_url" [alt]="pollution()!.titre" class="detailsImage" />
+    
+    <div class="detailsInfo">
+      <div class="detailRow">
+        <span class="detailLabel">Lieu:</span>
+        <span class="detailValue">{{ pollution()!.lieu }}</span>
+      </div>
+      
+      <div class="detailRow">
+        <span class="detailLabel">Type de pollution:</span>
+        <span class="detailValue pollutionTypeBadge">{{ pollution()!.type_pollution }}</span>
+      </div>
+      
+      <div class="detailRow">
+        <span class="detailLabel">Date d'observation:</span>
+        <span class="detailValue">{{ pollution()!.date_observation }}</span>
+      </div>
+      
+      <div class="detailRow">
+        <span class="detailLabel">Description:</span>
+        <p class="detailValue">{{ pollution()!.description }}</p>
+      </div>
+      
+      <div class="detailRow">
+        <span class="detailLabel">Coordonnées:</span>
+        <span class="detailValue">Lat: {{ pollution()!.latitude }}, Long: {{ pollution()!.longitude }}</span>
+      </div>
+    </div>
+
+    <div class="actionsContainer">
+      <button (click)="goBack()" class="button backButton">Retour à la liste</button>
+      <button (click)="editPollution()" class="button editButton">Modifier</button>
+    </div>
+  </div>
+</div>

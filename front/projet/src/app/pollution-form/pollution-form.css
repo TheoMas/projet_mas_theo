@@ -1,0 +1,194 @@
+.formContainer {
+  max-width: 700px;
+  margin: 3rem auto;
+  padding: 48px;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(40px) saturate(180%);
+  -webkit-backdrop-filter: blur(40px) saturate(180%);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    0 1px 0 rgba(0, 0, 0, 0.1);
+}
+    
+h1 {
+  color: rgba(255, 255, 255, 0.95);
+  margin-bottom: 32px;
+  text-align: center;
+  font-size: 32px;
+  font-weight: 600;
+  letter-spacing: -0.5px;
+}
+
+.loading {
+  text-align: center;
+  padding: 2rem;
+  color: var(--accent-color);
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+label {
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 13px;
+}
+
+.formControl {
+  padding: 14px 16px;
+  border: 1.5px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(20px);
+  border-radius: 10px;
+  font-size: 15px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  color: rgba(255, 255, 255, 0.95);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+  font-family: inherit;
+}
+
+.formControl::placeholder {
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.formControl:focus {
+  outline: none;
+  border-color: var(--accent-border);
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: 
+    inset 0 1px 2px rgba(0, 0, 0, 0.1),
+    0 0 0 3px rgba(0, 180, 150, 0.1);
+}
+
+.formControl.invalid {
+  border-color: rgba(255, 100, 100, 0.5);
+  box-shadow: 
+    inset 0 1px 2px rgba(0, 0, 0, 0.1),
+    0 0 0 3px rgba(255, 100, 100, 0.1);
+}
+
+textarea.formControl {
+  resize: vertical;
+  min-height: 100px;
+}
+
+select.formControl {
+  cursor: pointer;
+}
+
+.error {
+  color: rgba(255, 120, 120, 0.95);
+  font-size: 0.875rem;
+  margin-top: 4px;
+}
+
+.error small {
+  display: block;
+  margin-top: 0.25rem;
+}
+
+.buttonsContainer {
+  display: flex;
+  gap: 12px;
+  margin-top: 32px;
+}
+
+.button {
+  flex: 1;
+  padding: 14px;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.submitButton {
+  background: var(--accent-transparent);
+  backdrop-filter: blur(20px);
+  color: var(--accent-color);
+  border: 1.5px solid var(--accent-border);
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.submitButton:hover:not(:disabled) {
+  background: rgba(0, 180, 150, 0.25);
+  border-color: rgba(0, 180, 150, 0.4);
+  transform: translateY(-2px);
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.15),
+    0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+.cancelButton {
+  background: rgba(255, 100, 100, 0.1);
+  backdrop-filter: blur(20px);
+  color: rgba(255, 120, 120, 0.95);
+  border: 1.5px solid rgba(255, 100, 100, 0.25);
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.cancelButton:hover {
+  background: rgba(255, 100, 100, 0.18);
+  border-color: rgba(255, 100, 100, 0.35);
+  transform: translateY(-2px);
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+/* Styles pour l'input file et l'aperçu de l'image */
+.fileInput {
+  cursor: pointer;
+  padding: 12px;
+}
+
+.imagePreview {
+  margin-top: 16px;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(0, 0, 0, 0.2);
+  max-width: 100%;
+}
+
+.imagePreview img {
+  width: 100%;
+  height: auto;
+  max-height: 300px;
+  object-fit: contain;
+  display: block;
+}
+
+@media (max-width: 768px) {
+  .formContainer {
+    margin: 1rem;
+    padding: 32px 24px;
+  }
+
+  .buttonsContainer {
+    flex-direction: column;
+  }
+}

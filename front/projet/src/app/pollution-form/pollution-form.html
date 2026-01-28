@@ -1,0 +1,153 @@
+<div class="formContainer">
+  <h1>{{ isEditMode ? 'Modifier une pollution' : 'Créer une nouvelle pollution' }}</h1>
+
+  <div *ngIf="isLoading()" class="loading">
+    <p>Chargement...</p>
+  </div>
+
+  <form [formGroup]="pollutionForm" (ngSubmit)="onSubmit()" *ngIf="!isLoading()">
+    
+    <!-- Titre -->
+    <div class="formGroup">
+      <label for="titre">Titre de la pollution *</label>
+      <input 
+        type="text" 
+        id="titre" 
+        formControlName="titre" 
+        class="formControl"
+        [class.invalid]="titre?.invalid && titre?.touched"
+      />
+      <div class="error" *ngIf="titre?.invalid && titre?.touched">
+        <small *ngIf="titre?.errors?.['required']">Le titre est requis</small>
+        <small *ngIf="titre?.errors?.['minlength']">Le titre doit contenir au moins 3 caractères</small>
+      </div>
+    </div>
+
+    <!-- Lieu -->
+    <div class="formGroup">
+      <label for="lieu">Lieu *</label>
+      <input 
+        type="text" 
+        id="lieu" 
+        formControlName="lieu" 
+        class="formControl"
+        [class.invalid]="lieu?.invalid && lieu?.touched"
+      />
+      <div class="error" *ngIf="lieu?.invalid && lieu?.touched">
+        <small *ngIf="lieu?.errors?.['required']">Le lieu est requis</small>
+      </div>
+    </div>
+
+    <!-- Date d'observation -->
+    <div class="formGroup">
+      <label for="date_observation">Date d'observation *</label>
+      <input 
+        type="date" 
+        id="date_observation" 
+        formControlName="date_observation" 
+        class="formControl"
+        [class.invalid]="date_observation?.invalid && date_observation?.touched"
+      />
+      <div class="error" *ngIf="date_observation?.invalid && date_observation?.touched">
+        <small *ngIf="date_observation?.errors?.['required']">La date est requise</small>
+      </div>
+    </div>
+
+    <!-- Type de pollution -->
+    <div class="formGroup">
+      <label for="type_pollution">Type de pollution *</label>
+      <select 
+        id="type_pollution" 
+        formControlName="type_pollution" 
+        class="formControl"
+        [class.invalid]="type_pollution?.invalid && type_pollution?.touched"
+      >
+        <option value="">Sélectionnez un type</option>
+        <option *ngFor="let type of pollutionTypes" [value]="type">{{ type }}</option>
+      </select>
+      <div class="error" *ngIf="type_pollution?.invalid && type_pollution?.touched">
+        <small *ngIf="type_pollution?.errors?.['required']">Le type est requis</small>
+      </div>
+    </div>
+
+    <!-- Description -->
+    <div class="formGroup">
+      <label for="description">Description *</label>
+      <textarea 
+        id="description" 
+        formControlName="description" 
+        class="formControl"
+        rows="4"
+        [class.invalid]="description?.invalid && description?.touched"
+      ></textarea>
+      <div class="error" *ngIf="description?.invalid && description?.touched">
+        <small *ngIf="description?.errors?.['required']">La description est requise</small>
+        <small *ngIf="description?.errors?.['minlength']">La description doit contenir au moins 10 caractères</small>
+      </div>
+    </div>
+
+    <!-- Latitude -->
+    <div class="formGroup">
+      <label for="latitude">Latitude *</label>
+      <input 
+        type="text" 
+        id="latitude" 
+        formControlName="latitude" 
+        class="formControl"
+        placeholder="ex: 48.8566"
+        [class.invalid]="latitude?.invalid && latitude?.touched"
+      />
+      <div class="error" *ngIf="latitude?.invalid && latitude?.touched">
+        <small *ngIf="latitude?.errors?.['required']">La latitude est requise</small>
+      </div>
+    </div>
+
+    <!-- Longitude -->
+    <div class="formGroup">
+      <label for="longitude">Longitude *</label>
+      <input 
+        type="text" 
+        id="longitude" 
+        formControlName="longitude" 
+        class="formControl"
+        placeholder="ex: 2.3522"
+        [class.invalid]="longitude?.invalid && longitude?.touched"
+      />
+      <div class="error" *ngIf="longitude?.invalid && longitude?.touched">
+        <small *ngIf="longitude?.errors?.['required']">La longitude est requise</small>
+      </div>
+    </div>
+
+    <!-- Upload de l'image -->
+    <div class="formGroup">
+      <label for="photo_url">Image * <small style="color: rgba(255, 255, 255, 0.6); font-weight: 400;">(Max 5 Mo)</small></label>
+      <input 
+        type="file" 
+        id="photo_file" 
+        (change)="onFileSelected($event)"
+        accept="image/*"
+        class="formControl fileInput"
+        [class.invalid]="photo_url?.invalid && photo_url?.touched"
+      />
+      <div class="imagePreview" *ngIf="imagePreview">
+        <img [src]="imagePreview" alt="Aperçu" />
+      </div>
+      <div class="error" *ngIf="photo_url?.invalid && photo_url?.touched">
+        <small *ngIf="photo_url?.errors?.['required']">L'image est requise</small>
+      </div>
+    </div>
+
+    <!-- Message d'erreur général -->
+    <div class="error" *ngIf="submitError">
+      <p>{{ submitError }}</p>
+    </div>
+
+    <!-- Boutons d'action -->
+    <div class="buttonsContainer">
+      <button type="button" (click)="onCancel()" class="button cancelButton">Annuler</button>
+      <button type="submit" class="button submitButton" [disabled]="isLoading()">
+        {{ isEditMode ? 'Modifier' : 'Créer' }}
+      </button>
+    </div>
+  </form>
+</div>
