@@ -93,12 +93,15 @@ export class AuthService {
     // Rafraîchir le JWT via le refresh token
     refreshAccessToken(): Observable<any> {
         const url = `${this.apiUrl}/auth/refresh`;
-        const refreshToken = this.getRefreshToken();
-        return this.http.post(url, { refreshToken }, { ...this.httpOptions }).pipe(
+        // Use cookie-based refresh: send request with credentials so browser sends httpOnly refresh cookie
+        return this.http.post(url, {}, { ...this.httpOptions, withCredentials: true }).pipe(
             tap((res: any) => {
-                if (res?.accessToken) {
-                    localStorage.setItem('access_token', res.accessToken);
+                // Server may return new access token in body under `accessToken` or `token`
+                const token = res?.accessToken ?? res?.token ?? null;
+                if (token) {
+                    localStorage.setItem('access_token', token);
                 }
+                // If server returns a rotated refresh token in body, store it as well
                 if (res?.refreshToken) {
                     localStorage.setItem(this.REFRESH_TOKEN_KEY, res.refreshToken);
                 }
