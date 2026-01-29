@@ -1,16 +1,32 @@
 const crypto = require('crypto');
 // Déconnexion : supprime le refresh token en BDD
 exports.logout = async (req, res) => {
-  const { refreshToken } = req.body;
+  // Read refresh token from cookie (if present)
   const RefreshToken = db.refresh_token;
+  let refreshToken = req.cookies && req.cookies.refresh_token ? req.cookies.refresh_token : null;
   if (refreshToken) {
     await RefreshToken.destroy({ where: { token: refreshToken } });
   }
+  // Clear access and refresh cookies
+  const NODE_ENV = process.env.NODE_ENV || 'development';
+  const isProd = NODE_ENV === 'production';
+  const cookieOptions = {
+    httpOnly: true,
+    secure: isProd,
+    sameSite: isProd ? 'None' : 'Lax',
+    path: '/',
+  };
+  if (process.env.COOKIE_DOMAIN) cookieOptions.domain = process.env.COOKIE_DOMAIN;
+  res.clearCookie('accessToken', cookieOptions);
+  res.clearCookie('refresh_token', cookieOptions);
   res.status(200).json({ message: 'Déconnecté.' });
 };
 // Rafraîchir le JWT access token (sécurisé avec BDD, rotation du refresh token)
 exports.refreshToken = async (req, res) => {
-  const { refreshToken } = req.body;
+  // Try to read refresh token from cookie (preferred)
+  let refreshToken = req.cookies && req.cookies.refresh_token ? req.cookies.refresh_token : null;
+  // Fallback to body for compatibility
+  if (!refreshToken) refreshToken = req.body.refreshToken;
   const jwt = require('jsonwebtoken');
   const config = require('../config');
   const RefreshToken = db.refresh_token;
@@ -32,7 +48,7 @@ exports.refreshToken = async (req, res) => {
     }
     // Supprimer l'ancien refresh token (rotation)
     await tokenRecord.destroy();
-    // Générer un nouveau refresh token
+    // Générer un nouveau refresh token (rotation)
     const newRefreshToken = crypto.randomBytes(64).toString('hex');
     await RefreshToken.create({ userId: user.id, token: newRefreshToken });
     // Générer un nouveau access token
@@ -43,9 +59,32 @@ exports.refreshToken = async (req, res) => {
       role_id: user.role_id || 2
     };
     const accessToken = jwt.sign(userPayload, config.ACCESS_TOKEN_SECRET, { expiresIn: '15m' });
-    // Retourner accessToken et refreshToken dans le corps (pas de cookie)
+    // Mettre l'access token dans un cookie HTTP-only et stocker le refresh token en cookie (comme PalaisdelaBeaute)
+    const NODE_ENV = process.env.NODE_ENV || 'development';
+    const isProd = NODE_ENV === 'production';
+    // Cookie base options
+    const cookieOptions = {
+      httpOnly: true,
+      secure: isProd,
+      sameSite: isProd ? 'None' : 'Lax',
+      maxAge: 15 * 60 * 1000, // 15 minutes
+      path: '/',
+    };
+    // Optional domain for cross-subdomain cookies
+    if (process.env.COOKIE_DOMAIN) cookieOptions.domain = process.env.COOKIE_DOMAIN;
+    res.cookie('accessToken', accessToken, cookieOptions);
+    // refresh cookie (longer lived)
+    const refreshCookieOptions = {
+      httpOnly: true,
+      secure: isProd,
+      sameSite: isProd ? 'None' : 'Lax',
+      maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
+      path: '/',
+    };
+    if (process.env.COOKIE_DOMAIN) refreshCookieOptions.domain = process.env.COOKIE_DOMAIN;
+    res.cookie('refresh_token', newRefreshToken, refreshCookieOptions);
     res.setHeader('Authorization', 'Bearer ' + accessToken);
-    res.json({ accessToken, refreshToken: newRefreshToken });
+    res.json({ token: accessToken });
   } catch (err) {
     console.error('[AUTH] refresh error:', err && err.message ? err.message : err);
     res.status(500).json({ message: 'Erreur lors du refresh token.' });
@@ -389,14 +428,33 @@ exports.login = async (req, res) => {
         // Stocker le refresh token en BDD
         const RefreshToken = db.refresh_token;
         await RefreshToken.create({ userId: data.id, token: refreshToken });
-        // Retourner accessToken et refreshToken dans le corps de la réponse
+        // Mettre l'access token dans un cookie HTTP-only et stocker le refresh token en cookie
+        const NODE_ENV = process.env.NODE_ENV || 'development';
+        const isProd = NODE_ENV === 'production';
+        const cookieOptions = {
+          httpOnly: true,
+          secure: isProd,
+          sameSite: isProd ? 'None' : 'Lax',
+          maxAge: 15 * 60 * 1000, // 15 minutes
+          path: '/',
+        };
+        if (process.env.COOKIE_DOMAIN) cookieOptions.domain = process.env.COOKIE_DOMAIN;
+        res.cookie('accessToken', accessToken, cookieOptions);
         res.setHeader('Authorization', 'Bearer ' + accessToken);
+        const refreshCookieOptions = {
+          httpOnly: true,
+          secure: isProd,
+          sameSite: isProd ? 'None' : 'Lax',
+          maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
+          path: '/',
+        };
+        if (process.env.COOKIE_DOMAIN) refreshCookieOptions.domain = process.env.COOKIE_DOMAIN;
+        res.cookie('refresh_token', refreshToken, refreshCookieOptions);
         res.json({
           id: data.id,
           username: data.username,
           email: data.email,
-          accessToken,
-          refreshToken
+          token: accessToken
         });
       } else {
         res.status(401).send({ message: "Mot de passe incorrect." });
